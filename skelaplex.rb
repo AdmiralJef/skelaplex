@@ -19,6 +19,19 @@ def start
   tmux 'start-server'
 end
 
+
+def make_alias
+  skelaplex_path = "ruby #{File.dirname(__FILE__)}/skelaplex.rb"
+  
+  puts 'Creating permanent alias...'
+  `echo 'alias skelaplex=\"#{skelaplex_path}\"' >> ~/.bash_aliases`
+
+  puts 'Done. Restart your terminal and enter `skelaplex` to set up your environment.'
+end
+
+
+make_alias if ARGV[0] == 'alias'
+
 start
 
 tmux 'new-session -d -s skelaplex -n Server'
