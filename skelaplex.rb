@@ -1,5 +1,15 @@
-APP_DIR = '~/web/skela'
+APP_DIR = '~/projects/skela'
 PORT = 3000
+IDE_PATH = '/opt/RubyMine-2016.1.1/bin/rubymine.sh'
+
+postgres = false
+
+start_server_code = if postgres
+	"bundle exec passenger start -p #{PORT}"
+else
+	"rails s -p #{PORT}"
+end
+
 
 def tmux(code)
   `tmux #{code}`
@@ -12,7 +22,7 @@ end
 start
 
 tmux 'new-session -d -s skelaplex -n Server'
-tmux "send-keys -t skelaplex:0 \"cd #{APP_DIR}; bundle exec passenger start -p #{PORT}\" C-m"
+tmux "send-keys -t skelaplex:0 \"cd #{APP_DIR}; #{start_server_code}\" C-m"
 
 tmux 'split-window -v -t skelaplex:0'
 tmux 'resize-pane -D -t skelaplex:0 9'
@@ -31,11 +41,8 @@ unless need_chrome
 end
 
 if `pgrep rubymine`.empty?
-
-  rubymine_path = '/opt/RubyMine-8.0.3/bin/rubymine.sh'
-
   tmux 'new-session -d -s IDE -n Rubymine'
-  tmux "send-keys -t IDE:0 \"#{rubymine_path}\" C-m"
+  tmux "send-keys -t IDE:0 \"#{IDE_PATH}\" C-m"
 end
 
 tmux 'select-window -t skelaplex:0'
