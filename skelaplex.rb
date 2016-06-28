@@ -1,6 +1,6 @@
 APP_DIR = '~/projects/skela'
 PORT = 3000
-IDE_PATH = '/opt/RubyMine-2016.1.1/bin/rubymine.sh'
+IDE_PATH = '/opt/RubyMine-2016.1.2/bin/rubymine.sh'
 
 postgres = false
 
