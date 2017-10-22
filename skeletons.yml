@@ -1,0 +1,11 @@
+default: plants_for_hire
+
+skela:
+  stuff: things
+
+plants_for_hire:
+  title: 'PlantsForHire'
+  development_server: 'thin start -p 3000'
+  production_server: 'rails s -p 3001'
+  ngrok_tunnel: 'ngrok http 3001 -subdomain=plantsforhire'
+  console: 'git status, then git lg if nothing to commit'
